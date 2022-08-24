@@ -1,17 +1,16 @@
-import {useAnchorWallet, useWallet} from "@solana/wallet-adapter-react";
-import type {NextPage} from "next";
-import {useContext, useEffect, useState} from "react";
-import {ContractContext} from "../src/context/contract";
-import {createRaffle} from "../src/utils/instructions";
+import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
+import type { NextPage } from "next";
+import { useContext, useEffect, useState } from "react";
+import { ContractContext } from "../src/context/contract";
+import { createRaffle } from "../src/utils/instructions";
 import styles from "../styles/create.module.scss";
-import {Keypair, Transaction, PublicKey, LAMPORTS_PER_SOL, clusterApiUrl} from "@solana/web3.js";
+import { Keypair, Transaction, PublicKey, LAMPORTS_PER_SOL, clusterApiUrl } from "@solana/web3.js";
 import Loading from "../src/components/loading";
 import toast from "react-hot-toast";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import Popup from "../src/components/popup";
-import Head from "next/head";
-import {getFeeWithDecimal, getPriceWithDecimal, getTokenInfo} from "../src/utils/tokeninfo";
-import {getNFTsByOwner} from '../src/utils/getNfts';
+import { getFeeWithDecimal, getPriceWithDecimal, getTokenInfo } from "../src/utils/tokeninfo";
+import { getNFTsByOwner } from '../src/utils/getNfts';
 
 
 const Create: NextPage = () => {
@@ -45,7 +44,7 @@ const Create: NextPage = () => {
 
         const ends = Number(new Date(`${year}-${month + 1}-${day} ${hours}:${minutes}:00`)) / 1000;
         const now = Number(new Date(Date.now())) / 1000;
-        return {now, ends};
+        return { now, ends };
     }
 
     const handleCreate = async () => {
@@ -53,14 +52,11 @@ const Create: NextPage = () => {
         try {
             if (!program) return console.log('No Program');
             if (!wallet) return console.log('No wallet connected');
-
-
             if (!customToken) {
                 toast.error('SOL is currently unsupported');
                 setLoading(false);
                 return;
             }
-
             if (!time) {
                 toast.error('No End Time Selected');
                 setLoading(false);
@@ -76,24 +72,17 @@ const Create: NextPage = () => {
                 setLoading(false);
                 return;
             }
-            ;
-
             if (description == '') {
                 toast.error('Description Empty');
                 setLoading(false);
                 return;
             }
-            ;
-
             if (!token) {
                 toast.error('No Token Selected');
                 setLoading(false);
                 return;
             }
-            ;
-
-            const {now, ends} = getEndFromDates(date, time);
-
+            const { now, ends } = getEndFromDates(date, time);
             if (now > ends) {
                 toast.error('End Date Can\'t Be In The Past');
                 setLoading(false);
@@ -104,7 +93,6 @@ const Create: NextPage = () => {
                 setLoading(false);
                 return;
             }
-
             if (!winNftPubkey) {
                 toast.error('No Owner Nft Selected');
                 setLoading(false);
@@ -112,7 +100,6 @@ const Create: NextPage = () => {
             }
             const tokenInfo = await getTokenInfo(new PublicKey(token));
             const entry_fee = getFeeWithDecimal(tokenInfo, parseFloat(fee));
-
             const raffle = Keypair.generate();
             const instruction = await createRaffle(
                 program.program,
@@ -130,7 +117,6 @@ const Create: NextPage = () => {
             );
 
             const blockhash = await program.connection.getLatestBlockhash('finalized');
-
             const transaction = new Transaction({
                 lastValidBlockHeight: blockhash.lastValidBlockHeight,
                 blockhash: blockhash.blockhash,
@@ -142,17 +128,13 @@ const Create: NextPage = () => {
 
             const signed = await wallet.signTransaction(transaction);
             const signature = await program.connection.sendRawTransaction(signed.serialize());
-
             await program.connection.confirmTransaction({
                 blockhash: blockhash.blockhash,
                 lastValidBlockHeight: blockhash.lastValidBlockHeight,
                 signature: signature
             }, 'max');
-
-
             toast.success('Raffle Created');
             router.push(`/raffle/${raffle.publicKey.toString()}`);
-
         } catch (err: any) {
             toast.error('Error Creating Raffle');
             setLoading(false);
@@ -160,8 +142,7 @@ const Create: NextPage = () => {
             console.log(err);
         }
     };
-
-
+    
     const [selectTokenModalOpen, setSelectTokenModalOpen] = useState<boolean>(false);
     const [selectOwnerNftModalOpen, setSelectOwnerNftModalOpen] = useState<boolean>(false);
     const [tempToken, setTempToken] = useState<string>('');
@@ -179,19 +160,6 @@ const Create: NextPage = () => {
 
     return (
         <div className={styles.container}>
-
-            <Head>
-                <meta property="og:title" content={'Create Raffle | DAOify Raffles'} key="ogtitle"/>
-                <meta property="og:description" content={'Create your own raffle on Solana'} key="ogdesc"/>
-                <link rel="preconnect" href="https://fonts.googleapis.com"/>
-                <link rel="preconnect" href="https://fonts.gstatic.com"/>
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-                    rel="stylesheet"
-                />
-
-                <meta name="viewport" content="width=device-width, initial-scale=1"/>
-            </Head>
 
             <Popup
                 title={'SELECT CUSTOM TOKEN'}
@@ -218,7 +186,6 @@ const Create: NextPage = () => {
                     </button>
                 </>
             </Popup>
-
             <Popup
                 title={'SELECT OWNER NFT'}
                 open={selectOwnerNftModalOpen}
@@ -228,46 +195,45 @@ const Create: NextPage = () => {
                     {(nfts) ?
                         (nfts.map((nft, index) => {
                             return <div key={nft.pubkey} onClick={() => {
-                                setWinNftUrl(nft.externalMetadata.image), setWinNftPubkey(nft.mint),setSelectOwnerNftModalOpen(false)
+                                setWinNftUrl(nft.externalMetadata.image), setWinNftPubkey(nft.mint), setSelectOwnerNftModalOpen(false)
                             }}>
                                 <p>{nft.onchainMetadata.data.name}</p>
                                 <img src={nft.externalMetadata.image}
-                                     alt={nft.onchainMetadata.data.name}
-                                     width="150" height="150"></img>
+                                    alt={nft.onchainMetadata.data.name}
+                                    width="150" height="150"></img>
                             </div>
                         }))
                         :
                         <label>No Nfts</label>}
                 </>
             </Popup>
-
-            <Loading loading={loading}/>
+            <Loading loading={loading} />
             <h2>Create a Raffle</h2>
             <div className={styles.form}>
 
                 <label>
                     Title:
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}
-                           placeholder="My Whitelist Raffle"/>
+                        placeholder="My Whitelist Raffle" />
                 </label>
                 <label>
                     Description:
                     <textarea value={description} onChange={(e) => setDescription(e.target.value)}
-                              placeholder="Raffle to win an awesome whitelist!"/>
+                        placeholder="Raffle to win an awesome whitelist!" />
                 </label>
                 <label>
                     End Date:
-                    <input type="date" onChange={(e) => setDate(e.target.valueAsDate)}/>
+                    <input type="date" onChange={(e) => setDate(e.target.valueAsDate)} />
                 </label>
                 <label>
                     End Time UTC:
-                    <input type="time" onChange={(e) => setTime(e.target.valueAsDate)}/>
+                    <input type="time" onChange={(e) => setTime(e.target.valueAsDate)} />
                 </label>
                 <label>
                     Entry Fee:
                     &nbsp;
 
-                    <button style={{display: 'none'}}/>
+                    <button style={{ display: 'none' }} />
 
                     {/*<button onClick={() => setCustomToken(false)} className={`${!customToken && 'selected'}`}>SOL*/}
                     {/*</button>*/}
@@ -282,21 +248,21 @@ const Create: NextPage = () => {
 
                     {customToken && (
                         <span>
-              &nbsp;
+                            &nbsp;
                             {token.substring(0, 5) + "..." + token.substring(token.length - 5)}
-            </span>
+                        </span>
                     )
                     }
 
                     <input type="number" min={0} placeholder="0.0" value={fee}
-                           onChange={(e) => setFee(e.target.value)}/>
+                        onChange={(e) => setFee(e.target.value)} />
 
                 </label>
 
                 <label>
                     Amount of Winners:
                     <input type="number" placeholder="1" value={winners}
-                           onChange={(e) => setWinners(e.target.valueAsNumber)}/>
+                        onChange={(e) => setWinners(e.target.valueAsNumber)} />
                 </label>
                 <label>
                     Owner Nft:&nbsp;&nbsp;
@@ -304,13 +270,12 @@ const Create: NextPage = () => {
                 {winNftUrl === '' ? <button onClick={() => {
                     getWalletNfts()
                 }}>Select Owner Nft
-                    </button>: <img src={winNftUrl} width='200px' height='200px'/>}
+                </button> : <img src={winNftUrl} width='200px' height='200px' />}
 
 
-                <input type="submit" value="Create Raffle" onClick={handleCreate}/>
+                <input type="submit" value="Create Raffle" onClick={handleCreate} />
 
             </div>
-
         </div>
     );
 };

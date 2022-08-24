@@ -4,13 +4,12 @@ import { useContext, useEffect, useState } from "react";
 import { ContractContext } from "../../src/context/contract";
 import { PublicKey, Keypair, Transaction } from "@solana/web3.js";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import {closeRaffle, createRaffleWin, purchaseTicket} from "../../src/utils/instructions";
+import { closeRaffle, createRaffleWin, purchaseTicket } from "../../src/utils/instructions";
 import styles from "../../styles/raffle.module.scss";
 import toast from "react-hot-toast";
 import Countdown from "react-countdown";
 import Loading from "../../src/components/loading";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import Head from "next/head";
 import {
   getPriceWithDecimal,
   getTokenInfo,
@@ -35,6 +34,8 @@ type RaffleType = {
   price: number;
 };
 
+//动态路由页面，每一个项目点进去后的抽奖详情页
+
 const Raffle: NextPage = () => {
   const program = useContext(ContractContext);
   const wallet = useAnchorWallet();
@@ -44,7 +45,7 @@ const Raffle: NextPage = () => {
 
   const [data, setData] = useState<RaffleType | null>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [waiting, setWaiting] = useState<boolean>(false);
+  const [waiting, setWaiting] = useState<boolean>(true);
 
   const [selectedTickets, setSelectedTickets] = useState<number>(1);
   const [purchasedTickets, setPurchasedTickets] = useState<number>(0);
@@ -71,8 +72,8 @@ const Raffle: NextPage = () => {
         new PublicKey(rid)
       );
       const raffleWins = await program.program.account.raffleWin.all();
-      const raffleWin = raffleWins.filter((raffleWin)=>
-          raffleWin.account.raffle.toString() === rid
+      const raffleWin = raffleWins.filter((raffleWin) =>
+        raffleWin.account.raffle.toString() === rid
       )
       setData({
         authority: raffle.authority,
@@ -85,13 +86,13 @@ const Raffle: NextPage = () => {
         token: raffle.token,
         price: raffle.price.toNumber(),
       });
-      if(raffleWin.length > 0) {
+      if (raffleWin.length > 0) {
         setWinners(
-            raffleWin.map((win) => (
-                <div className={styles.winner} key={win.publicKey.toString()}>
-                  {win.account.winWallet.toString()}
-                </div>
-            ))
+          raffleWin.map((win) => (
+            <div className={styles.winner} key={win.publicKey.toString()}>
+              {win.account.winWallet.toString()}
+            </div>
+          ))
         );
         setDrawn(true);
       }
@@ -105,8 +106,8 @@ const Raffle: NextPage = () => {
     if (!program || !rid || !wallet) return;
     const allTickets = await program.program.account.ticket.all();
     const purchasedTicketsLength = allTickets.filter(
-        (ticket) =>
-            ticket.account.raffle.toString() == rid
+      (ticket) =>
+        ticket.account.raffle.toString() == rid
     ).length;
     const onChain = allTickets.filter(
       (ticket) =>
@@ -252,30 +253,9 @@ const Raffle: NextPage = () => {
   }, [program]);
 
   return loading ? (
-    <h2>Loading...</h2>
+    <Loading loading={waiting} />
   ) : data ? (
     <div className={styles.container}>
-      <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-          rel="stylesheet"
-        />
-
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:image" content={data.winNftUrl} key="ogimg"></meta>
-
-        <meta property="og:title" content={data.title} key="ogtitle" />
-        <meta
-          property="og:description"
-          content={data.description}
-          key="ogdesc"
-        />
-      </Head>
-
-      <Loading loading={waiting} />
-
       <div className={styles.title}>
         <h1>
           <CopyToClipboard text={window.location.href}>
@@ -312,9 +292,7 @@ const Raffle: NextPage = () => {
           </i>
         </p>
       </div>
-
       <hr />
-
       <div className={styles.content}>
         {data.authority &&
           wallet &&
@@ -326,9 +304,8 @@ const Raffle: NextPage = () => {
             </div>
           )}
         <div
-          className={`${styles.actions} ${
-            Date.now() / 1000 > data.ends && styles.disabled
-          }`}
+          className={`${styles.actions} ${Date.now() / 1000 > data.ends && styles.disabled
+            }`}
         >
           <h2>Purchase Tickets</h2>
           <p>
@@ -348,7 +325,7 @@ const Raffle: NextPage = () => {
             Current Tickets: &nbsp; <b>{purchasedTickets}</b>
           </p>
           <p>
-             Own Tickets: &nbsp; <b>{ownTickets}</b>
+            Own Tickets: &nbsp; <b>{ownTickets}</b>
           </p>
           <div className={styles.selector}>
             <button

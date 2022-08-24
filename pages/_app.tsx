@@ -11,11 +11,9 @@ import {
   SolflareWalletAdapter,
   TorusWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
-import { clusterApiUrl } from "@solana/web3.js";
 import { AppProps } from "next/app";
-import Head from "next/head";
-import { FC, useMemo } from "react";
-import { Toaster } from "react-hot-toast";
+import { FC, useEffect, useMemo } from "react";
+// import { Toaster } from "react-hot-toast";
 import { Menu } from "../src/components/menu/menu";
 import { ContractProvider } from "../src/context/contract";
 
@@ -36,14 +34,30 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
     ],
     [network]
   );
+  useEffect(()=>{
+      rem()
+    window.onresize=()=>{
+      rem()
+    }
+  },[])
 
+  const rem = () => {
+    let winWidth = document.documentElement.offsetWidth || document.body.offsetWidth
+    if (winWidth < 500) {
+      winWidth = 500
+    }else if(winWidth > 2000){
+      winWidth = 1500
+    }
+    let oHtml = document.getElementsByTagName('html')[0]
+    oHtml.style.fontSize = 100 * winWidth / 1920 + 'px'
+  }
 
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
           <ContractProvider>
-            <Toaster/>
+            {/* <Toaster/> */}
             <Menu />
             <Component {...pageProps} />
           </ContractProvider>

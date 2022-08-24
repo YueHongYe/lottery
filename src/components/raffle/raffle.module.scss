@@ -1,9 +1,8 @@
-@import '../../../styles/variables.scss';
 
 .container {
     width:250px;
     height:400px;
-    background-color: $cream;
+    background-color: rgb(213, 211, 194);
     display: inline-block;
     border-radius: 5px;
     position: relative;
@@ -15,9 +14,9 @@
         left:15px; right:15px;
         top:0; bottom:15px;
         height:60px;
-        border-bottom:1px solid $dusk;
+        border-bottom:1px solid rgb(24, 27, 38);
         line-height:60px;
-        color:$dusk;
+        color:rgb(24, 27, 38);
         text-align: center;
         overflow:hidden;
         font-weight: 600;
@@ -39,10 +38,9 @@
         }
     }
 
-
     .footer_button {
         border-radius: 5px;
-        background-color: $dusk;
+        background-color: rgb(24, 27, 38);
         text-align: center;
         position: absolute;
         bottom:15px;
@@ -52,8 +50,5 @@
         transition: .3s;
         cursor: pointer;
         user-select: none;
-    }
-    .footer_button:hover {
-        text-decoration: underline;
     }
 }

@@ -88,8 +88,12 @@
           background-color: #F6D35F;
         }
       }
-      .wallet-adapter-dropdown-list-active{
-        transform: translateY(-10px) !important;
+      >ul{
+        transform: translateX(10%) !important;
+        padding: 10px 0px;
+        left: 0%;
+        top: 80%;
+        right: auto;
       }
       .wallet-adapter-dropdown-list{
         top: 70%!important;

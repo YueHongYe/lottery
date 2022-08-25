@@ -118,6 +118,98 @@
             }
         }
     }
+    .home_rf{
+        width: 90%;
+        margin: auto;
+        display: flex;
+        .home_rf_left{
+            flex: 3;
+            text-align: center;
+        }
+        .home_rf_right{
+            flex: 1;
+            .maxt{
+                background-color: aqua;
+                width: 2.5rem;
+                height: 0.5rem;
+                line-height: 0.5rem;
+                text-align: center;
+                border-radius: 20px;
+                color: black;
+                position: relative;
+                >span{
+                    position: absolute;
+                    top: 50%;
+                    right: 10%;
+                    transform-origin: 50% 50%;
+                    transform:translate(0%,-50%);
+                    width: 20px;
+                    height: 20px;
+                    display: inline-block;
+                    cursor: pointer;
+                    transition: .7s;
+                    &::after{
+                        content: '';
+                        width: 50%;
+                        height: 1px;
+                        background-color: red;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform:translate(-90%,-50%)rotate(45deg);
+                    }
+                    &::before{
+                        content: '';
+                        width: 50%;
+                        height: 1px;
+                        background-color: red;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform:translate(-20%,-50%) rotate(-45deg);
+                    }
+                }
+            }
+            .ul{
+                padding: 0%;
+                margin: 0%;
+                list-style: none;
+                width: 2.5rem;
+                height: 0px;
+                overflow: hidden;
+                transition: .7s;
+                >li{
+                    text-align: center;
+                    padding: 10px 0px;
+                    background-color: rgb(24, 62, 186);
+                    border-bottom: 1px solid green;
+                    &:hover{
+                        color: red;
+                    }
+                }
+                >li:last-child{
+                    border-bottom: none;
+                    border-bottom-left-radius: 20px;
+                    border-bottom-right-radius: 20px;
+                }
+                >li:first-child{
+                    border-top-left-radius: 20px;
+                    border-top-right-radius: 20px;
+                }
+            }
+            .mint{
+                >span{
+                    background-color: rgb(12, 99, 158);
+                    margin-right: 10px;
+                    margin-bottom: 10px;
+                    display: inline-block;
+                    >span{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
 }
 .loading {
     display: flex;

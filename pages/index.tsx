@@ -36,10 +36,10 @@ function CountDownTimer(ends: any, nows: any) {
       <div>It's over</div>
     )
   }
-  let days = (Math.floor(distance / _day) < 10 ? '0'+ Math.floor(distance / _day) : Math.floor(distance / _day));
-  let hours = (Math.floor((distance % _day) / _hour) < 10 ? '0'+ Math.floor((distance % _day) / _hour) : Math.floor((distance % _day) / _hour));
-  let minutes = (Math.floor((distance % _hour) / _minute) < 10 ? '0'+ Math.floor((distance % _hour) / _minute) : Math.floor((distance % _hour) / _minute));
-  let seconds = (Math.floor((distance % _minute) / _second) < 10 ? '0'+ Math.floor((distance % _minute) / _second) : Math.floor((distance % _minute) / _second));
+  let days = (Math.floor(distance / _day) < 10 ? '0' + Math.floor(distance / _day) : Math.floor(distance / _day));
+  let hours = (Math.floor((distance % _day) / _hour) < 10 ? '0' + Math.floor((distance % _day) / _hour) : Math.floor((distance % _day) / _hour));
+  let minutes = (Math.floor((distance % _hour) / _minute) < 10 ? '0' + Math.floor((distance % _hour) / _minute) : Math.floor((distance % _hour) / _minute));
+  let seconds = (Math.floor((distance % _minute) / _second) < 10 ? '0' + Math.floor((distance % _minute) / _second) : Math.floor((distance % _minute) / _second));
 
   return (
     <div className={styles.dates}>
@@ -172,6 +172,8 @@ const Home: NextPage = () => {
   const [show, setShow] = useState([])
   const [showIndex, setShowIndex] = useState(0)
   const [dates, setDates] = useState(new Date())
+  const [pages, setPages] = useState(['Recently Added', 'Expiring Soon', 'Selling out soon', 'Expiring Soon'])
+  const [ogone , setOgone] = useState([])
   useEffect(() => {
     let aaa = arrToTwoDim(homeshow, 4)
     setShow(aaa[showIndex])
@@ -187,6 +189,37 @@ const Home: NextPage = () => {
       clearInterval(times)
     }
   }, [])
+  const opentitle = () => {
+    let div:any = document.querySelector('#ul');
+    let height = div.scrollHeight.toString() + "px";
+    let span1:any = document.querySelector('.span1')
+    span1.style.transform = 'translate(0%,-50%)'
+    if (div.style.height === height) {
+      div.style.height = 0;
+      span1.style.transform = 'translate(0%,-50%) rotate(-90deg)'
+    } else {
+      div.style.height = height;
+    }
+  }
+  const closeAndChange =(e:any)=>{
+    let div:any = document.querySelector('#ul')
+    let istitle:any = document.querySelector('.istitle')
+    istitle.innerText = e.target.innerText
+    console.log(istitle);
+    div.style.height = 0;
+    let aa:any = ogone
+    aa.push(e.target.innerText)
+    setOgone(aa)
+  }
+  const del =(name:any)=>{
+    let aa:any = ogone
+    for (let i = 0; i < aa.length; i++) {
+      if(aa[i] == name){
+        aa.splice(i,1)
+      }
+    }
+    setOgone(aa)
+  }
 
 
   const program = useContext(ContractContext);
@@ -275,11 +308,33 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      {loading ? (
-        <Loading loading={loading} />
-      ) : (
-        raffles && raffles
-      )}
+      <div className={styles.home_rf}>
+        <div className={styles.home_rf_left}>
+          {loading ? (<Loading loading={loading} />) : (raffles && raffles)}
+        </div>
+        <div className={styles.home_rf_right}>
+          <h1>token</h1>
+          <div className={styles.mint}>
+            {
+              ogone && ogone!=[] && ogone.map((item,index)=>{
+                return(
+                  <span key={index}>{item}&nbsp;&nbsp;<span onClick={()=>del(item)}>X</span></span>
+                )
+              })
+            }
+          </div>
+          <div className={styles.maxt}><div className="istitle"></div><span onClick={() => opentitle()} className='span1'></span></div>
+          <ul className={styles.ul} id='ul'>
+            {
+              pages && pages != [] && pages.map((item, index) => {
+                return (
+                  <li key={index} onClick={(e)=> closeAndChange(e)}>{item}</li>
+                )
+              })
+            }
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };

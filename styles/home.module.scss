@@ -137,6 +137,7 @@
                 border-radius: 20px;
                 color: black;
                 position: relative;
+                cursor: pointer;
                 >span{
                     position: absolute;
                     top: 50%;
@@ -146,7 +147,6 @@
                     width: 20px;
                     height: 20px;
                     display: inline-block;
-                    cursor: pointer;
                     transition: .7s;
                     &::after{
                         content: '';
@@ -183,6 +183,7 @@
                     padding: 10px 0px;
                     background-color: rgb(24, 62, 186);
                     border-bottom: 1px solid green;
+                    cursor: pointer;
                     &:hover{
                         color: red;
                     }

@@ -323,7 +323,7 @@ const Home: NextPage = () => {
               })
             }
           </div>
-          <div className={styles.maxt}><div className="istitle"></div><span onClick={() => opentitle()} className='span1'></span></div>
+          <div className={styles.maxt} onClick={() => opentitle()}><div className="istitle"></div><span  className='span1'></span></div>
           <ul className={styles.ul} id='ul'>
             {
               pages && pages != [] && pages.map((item, index) => {

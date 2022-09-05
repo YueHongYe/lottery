@@ -62,7 +62,7 @@
                         bottom: 0%;
                         left: 0%;
                         width: 100%;
-                        padding: 20px 10px;
+                        padding: 20px 5px;
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
@@ -232,6 +232,22 @@
                             span{
                                 margin: 0px 0px !important;
                             }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width:2002px) {
+    .container{
+        .home_img{
+            .home_show{
+                >div:nth-child(1){
+                    >div{
+                        >img{
+                            height: 4.5rem;
+                            width: 3.2rem;
                         }
                     }
                 }

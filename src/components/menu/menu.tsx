@@ -27,7 +27,7 @@ export const Menu: FC = () => {
         </div>
       </div>
       <div className={styles.link1}>
-        <img src="./home/r3.png" alt=""></img>
+        <img src="./home/r3.svg" alt=""></img>
       </div>
       <div className={styles.link2}>
         <div className={styles.links}>
@@ -36,8 +36,8 @@ export const Menu: FC = () => {
               <span>{link.name}</span>
             </div>
           ))}
+          <div><WalletMultiButton /></div>
         </div>
-        <WalletMultiButton />
       </div>
     </div>
   );

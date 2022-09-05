@@ -7,6 +7,7 @@ import Raffle from "../src/components/raffle/raffle";
 import { ContractContext } from "../src/context/contract";
 import styles from "../styles/home.module.scss";
 import Loading from "../src/components/loading";
+// eslint-disable @next/next/no-img-element
 
 
 function arrToTwoDim(arr: any, n = 4) {
@@ -316,7 +317,7 @@ const Home: NextPage = () => {
           <h1>token</h1>
           <div className={styles.mint}>
             {
-              ogone && ogone!=[] && ogone.map((item,index)=>{
+              ogone && ogone.map((item,index)=>{
                 return(
                   <span key={index}>{item}&nbsp;&nbsp;<span onClick={()=>del(item)}>X</span></span>
                 )

@@ -118,10 +118,14 @@
             padding: 0px 10px;
             font-size: 14px;
             width: 100%;
-            max-width: 120px;
+            max-width: 130px;
             display: inline-block;
             white-space: nowrap;
             display: flex;
+            font-family: 'aaa';
+            .wallet-adapter-button-start-icon{
+              margin-right: 6px !important;
+            }
             &:hover {
               background-color: #F6D35F;
             }

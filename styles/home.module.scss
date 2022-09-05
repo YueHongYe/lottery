@@ -23,6 +23,7 @@
             padding-top: 1.7rem;
             letter-spacing: -0.02em;
             color: #F1F1F1;
+            font-weight: 800;
         }
         .home_show{
             width: 90%;
@@ -56,6 +57,8 @@
                         text-align: center;
                         padding-top: 10px;
                         font-size: 0.2rem;
+                        font-family: 'aaa';
+                        font-weight: 300;
                     }
                     .bottom{
                         position: absolute;
@@ -69,6 +72,7 @@
                         font-size: 14px;
                         text-transform: uppercase;
                         color: #FFFFFF;
+                        font-family: 'aaa';
                         >div:nth-child(2){
                             .dates{
                                 >span{

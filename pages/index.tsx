@@ -7,7 +7,7 @@ import Raffle from "../src/components/raffle/raffle";
 import { ContractContext } from "../src/context/contract";
 import styles from "../styles/home.module.scss";
 import Loading from "../src/components/loading";
-// eslint-disable @next/next/no-img-element
+import Image from "next/image";
 
 
 function arrToTwoDim(arr: any, n = 4) {
@@ -58,112 +58,112 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [homeshow, setHomeShow] = useState([
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '11',
       entries: '222',
       date: '09/24/2022 11:23:37 AM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '22',
       entries: '222',
       date: '09/11/2022 4:01:59 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '33',
       entries: '222',
       date: '10/11/2022 3:21:54 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '44',
       entries: '222',
       date: '11/11/2022 6:31:36 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '555',
       entries: '222',
       date: '06/11/2023 5:11 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '666',
       entries: '222',
       date: '06/11/2023 4:11 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '777',
       entries: '222',
       date: '06/11/2023 3:11 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '888',
       entries: '222',
       date: '06/11/2023 1:11 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '999',
       entries: '222',
       date: '06/11/2023 5:11 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '000',
       entries: '222',
       date: '06/11/2023 4:11 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '001',
       entries: '222',
       date: '06/11/2023 3:11 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '002',
       entries: '222',
       date: '06/11/2023 1:11 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '003',
       entries: '222',
       date: '06/11/2023 5:11 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '004',
       entries: '222',
       date: '06/11/2023 4:11 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '005',
       entries: '222',
       date: '06/11/2023 3:11 PM',
       smb: '333'
     },
     {
-      img: './home/666.png',
+      img: '/home/666.png',
       price: '006',
       entries: '222',
       date: '06/11/2023 1:11 PM',
@@ -174,7 +174,7 @@ const Home: NextPage = () => {
   const [showIndex, setShowIndex] = useState(0)
   const [dates, setDates] = useState(new Date())
   const [pages, setPages] = useState(['Recently Added', 'Expiring Soon', 'Selling out soon', 'Expiring Soon'])
-  const [ogone , setOgone] = useState([])
+  const [ogone, setOgone] = useState([])
   useEffect(() => {
     let aaa = arrToTwoDim(homeshow, 4)
     setShow(aaa[showIndex])
@@ -191,9 +191,9 @@ const Home: NextPage = () => {
     }
   }, [])
   const opentitle = () => {
-    let div:any = document.querySelector('#ul');
+    let div: any = document.querySelector('#ul');
     let height = div.scrollHeight.toString() + "px";
-    let span1:any = document.querySelector('.span1')
+    let span1: any = document.querySelector('.span1')
     span1.style.transform = 'translate(0%,-50%)'
     if (div.style.height === height) {
       div.style.height = 0;
@@ -202,21 +202,21 @@ const Home: NextPage = () => {
       div.style.height = height;
     }
   }
-  const closeAndChange =(e:any)=>{
-    let div:any = document.querySelector('#ul')
-    let istitle:any = document.querySelector('.istitle')
+  const closeAndChange = (e: any) => {
+    let div: any = document.querySelector('#ul')
+    let istitle: any = document.querySelector('.istitle')
     istitle.innerText = e.target.innerText
     console.log(istitle);
     div.style.height = 0;
-    let aa:any = ogone
+    let aa: any = ogone
     aa.push(e.target.innerText)
     setOgone(aa)
   }
-  const del =(name:any)=>{
-    let aa:any = ogone
+  const del = (name: any) => {
+    let aa: any = ogone
     for (let i = 0; i < aa.length; i++) {
-      if(aa[i] == name){
-        aa.splice(i,1)
+      if (aa[i] == name) {
+        aa.splice(i, 1)
       }
     }
     setOgone(aa)
@@ -270,7 +270,11 @@ const Home: NextPage = () => {
         <title>Reactiv3 Nft Raffle</title>
       </Head>
       <div className={styles.home_img}>
-        <img src="./home-logo.png"></img>
+        <img src="/home-logo.png"
+          // height='100%'
+          // width='100%'
+          // alt="sss"
+        ></img>
         <div className={styles.home_page}>Your NFT collection short description in about ten-eleven words.</div>
         <div className={styles.home_show}>
           <div>
@@ -278,7 +282,9 @@ const Home: NextPage = () => {
               show && show.map((item: any, index) => {
                 return (
                   <div key={index}>
-                    <img src={item.img}></img>
+                    <img src={item.img} 
+                      height='100%'
+                      width='100%'></img>
                     <div className={styles.price}>${item.price}</div>
                     <div className={styles.bottom}>
                       <div>
@@ -317,19 +323,19 @@ const Home: NextPage = () => {
           <h1>token</h1>
           <div className={styles.mint}>
             {
-              ogone && ogone.map((item,index)=>{
-                return(
-                  <span key={index}>{item}&nbsp;&nbsp;<span onClick={()=>del(item)}>X</span></span>
+              ogone && ogone.map((item, index) => {
+                return (
+                  <span key={index}>{item}&nbsp;&nbsp;<span onClick={() => del(item)}>X</span></span>
                 )
               })
             }
           </div>
-          <div className={styles.maxt} onClick={() => opentitle()}><div className="istitle"></div><span  className='span1'></span></div>
+          <div className={styles.maxt} onClick={() => opentitle()}><div className="istitle"></div><span className='span1'></span></div>
           <ul className={styles.ul} id='ul'>
             {
               pages && pages.map((item, index) => {
                 return (
-                  <li key={index} onClick={(e)=> closeAndChange(e)}>{item}</li>
+                  <li key={index} onClick={(e) => closeAndChange(e)}>{item}</li>
                 )
               })
             }

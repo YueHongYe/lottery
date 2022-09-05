@@ -26,7 +26,7 @@ const Raffle: FC<RaffleType> = ({ account, publicKey }) => {
                 {account.title}
             </div>
             <div className={styles.image}>
-                <img src={account.winNftUrl} draggable={false}/>
+                <img src={account.winNftUrl} draggable={false} alt=""/>
             </div>
             <div className={styles.footer_button} onClick={() => router.push(`/raffle/${publicKey.toString()}`)}>
                 MORE INFO

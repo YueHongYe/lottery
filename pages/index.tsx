@@ -7,7 +7,6 @@ import Raffle from "../src/components/raffle/raffle";
 import { ContractContext } from "../src/context/contract";
 import styles from "../styles/home.module.scss";
 import Loading from "../src/components/loading";
-import Image from "next/image";
 
 
 function arrToTwoDim(arr: any, n = 4) {
@@ -34,7 +33,7 @@ function CountDownTimer(ends: any, nows: any) {
   if (distance <= 0) {
     console.log('already out!');
     return (
-      <div>It's over</div>
+      <div>It"s over</div>
     )
   }
   let days = (Math.floor(distance / _day) < 10 ? '0' + Math.floor(distance / _day) : Math.floor(distance / _day));

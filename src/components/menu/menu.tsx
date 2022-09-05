@@ -21,13 +21,13 @@ export const Menu: FC = () => {
     <div className={styles.container}>
       <div className={styles.link}>
         <div>
-          <a><img src="./home/ins.svg"></img></a>
-          <a><img src="./home/twitter.svg"></img></a>
-          <a><img src="./home/Vector.svg"></img></a>
+          <a><img src="./home/ins.svg" alt=""></img></a>
+          <a><img src="./home/twitter.svg" alt=""></img></a>
+          <a><img src="./home/Vector.svg" alt=""></img></a>
         </div>
       </div>
       <div className={styles.link1}>
-        <img src="./home/r3.png"></img>
+        <img src="./home/r3.png" alt=""></img>
       </div>
       <div className={styles.link2}>
         <div className={styles.links}>

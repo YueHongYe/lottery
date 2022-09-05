@@ -11,7 +11,6 @@ import { useRouter } from "next/router";
 import Popup from "../src/components/popup";
 import { getFeeWithDecimal, getPriceWithDecimal, getTokenInfo } from "../src/utils/tokeninfo";
 import { getNFTsByOwner } from '../src/utils/getNfts';
-import Image from "next/image";
 
 
 const Create: NextPage = () => {
@@ -199,9 +198,9 @@ const Create: NextPage = () => {
                                 setWinNftUrl(nft.externalMetadata.image), setWinNftPubkey(nft.mint), setSelectOwnerNftModalOpen(false)
                             }}>
                                 <p>{nft.onchainMetadata.data.name}</p>
-                                <Image src={nft.externalMetadata.image}
+                                <img src={nft.externalMetadata.image}
                                     alt={nft.onchainMetadata.data.name}
-                                    width="150" height="150"></Image>
+                                    width="150" height="150"></img>
                             </div>
                         }))
                         :
@@ -271,7 +270,7 @@ const Create: NextPage = () => {
                 {winNftUrl === '' ? <button onClick={() => {
                     getWalletNfts()
                 }}>Select Owner Nft
-                </button> : <Image src={winNftUrl} width='200px' height='200px' />}
+                </button> : <img src={winNftUrl} width='200px' height='200px' />}
 
 
                 <input type="submit" value="Create Raffle" onClick={handleCreate} />

@@ -35,9 +35,11 @@
   }
   .link2{
     display: flex;
+    align-items: center;
     >div:nth-child(1){
       flex: 2;
       display: flex;
+      height: 100%;
       >div{
         flex: 1;
         cursor: pointer;
@@ -70,6 +72,7 @@
     >div:nth-child(2){
       flex: 1;
       position: relative;
+      height: 100%;
       >button{
         font-family: 'aaa';
         position: absolute;
@@ -89,14 +92,22 @@
         }
       }
       >ul{
+        position: absolute;
         transform: translateX(10%) !important;
         padding: 10px 0px;
-        left: 0%;
-        top: 80%;
+        top: 90%;
         right: auto;
       }
       .wallet-adapter-dropdown-list{
         top: 70%!important;
+      }
+    }
+    >button{
+      background-color: #489AD6;
+      transform: skew(-6deg);
+      margin-left: 5%;
+      &:hover{
+        background-color: #F6D35F;
       }
     }
   }

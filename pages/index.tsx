@@ -273,7 +273,7 @@ const Home: NextPage = () => {
         <img src="/home-logo.png"
           // height='100%'
           // width='100%'
-          // alt="sss"
+          // layout="fill"
         ></img>
         <div className={styles.home_page}>Your NFT collection short description in about ten-eleven words.</div>
         <div className={styles.home_show}>
@@ -283,8 +283,10 @@ const Home: NextPage = () => {
                 return (
                   <div key={index}>
                     <img src={item.img} 
-                      height='100%'
-                      width='100%'></img>
+                      // height='100%'
+                      // width='100%'
+                      // layout="fill"
+                      ></img>
                     <div className={styles.price}>${item.price}</div>
                     <div className={styles.bottom}>
                       <div>

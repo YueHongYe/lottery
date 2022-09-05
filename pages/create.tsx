@@ -270,7 +270,7 @@ const Create: NextPage = () => {
                 {winNftUrl === '' ? <button onClick={() => {
                     getWalletNfts()
                 }}>Select Owner Nft
-                </button> : <img src={winNftUrl} width='200px' height='200px' />}
+                </button> : <img src={winNftUrl} width='200px' height='200px' alt="" />}
 
 
                 <input type="submit" value="Create Raffle" onClick={handleCreate} />

@@ -33,7 +33,7 @@ function CountDownTimer(ends: any, nows: any) {
   if (distance <= 0) {
     console.log('already out!');
     return (
-      <div>It"s over</div>
+      <div>It`s over</div>
     )
   }
   let days = (Math.floor(distance / _day) < 10 ? '0' + Math.floor(distance / _day) : Math.floor(distance / _day));

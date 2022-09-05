@@ -326,7 +326,7 @@ const Home: NextPage = () => {
           <div className={styles.maxt} onClick={() => opentitle()}><div className="istitle"></div><span  className='span1'></span></div>
           <ul className={styles.ul} id='ul'>
             {
-              pages && pages != [] && pages.map((item, index) => {
+              pages && pages.map((item, index) => {
                 return (
                   <li key={index} onClick={(e)=> closeAndChange(e)}>{item}</li>
                 )

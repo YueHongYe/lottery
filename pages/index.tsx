@@ -67,7 +67,7 @@ const Home: NextPage = () => {
       img: '/home/666.png',
       price: '22',
       entries: '222',
-      date: '09/11/2022 4:01:59 PM',
+      date: '10/11/2022 4:01 PM',
       smb: '333'
     },
     {
@@ -174,6 +174,7 @@ const Home: NextPage = () => {
   const [dates, setDates] = useState(new Date())
   const [pages, setPages] = useState(['Recently Added', 'Expiring Soon', 'Selling out soon', 'Expiring Soon'])
   const [ogone, setOgone] = useState([])
+
   useEffect(() => {
     let aaa = arrToTwoDim(homeshow, 4)
     setShow(aaa[showIndex])
@@ -201,12 +202,36 @@ const Home: NextPage = () => {
       div.style.height = height;
     }
   }
+  const opentitlee = () => {
+    let div: any = document.querySelector('#ull');
+    let height = div.scrollHeight.toString() + "px";
+    let span1: any = document.querySelector('.span2')
+    span1.style.transform = 'translate(0%,-50%)'
+    if (div.style.height === height) {
+      div.style.height = 0;
+      span1.style.transform = 'translate(0%,-50%) rotate(-90deg)'
+    } else {
+      div.style.height = height;
+    }
+  }
   const closeAndChange = (e: any) => {
     let div: any = document.querySelector('#ul')
     let istitle: any = document.querySelector('.istitle')
     istitle.innerText = e.target.innerText
-    console.log(istitle);
     div.style.height = 0;
+    let span1: any = document.querySelector('.span1')
+    span1.style.transform = 'translate(0%,-50%) rotate(-90deg)'
+    let aa: any = ogone
+    aa.push(e.target.innerText)
+    setOgone(aa)
+  }
+  const closeAndChangee = (e: any) => {
+    let div: any = document.querySelector('#ull')
+    let istitle: any = document.querySelector('.istitlee')
+    istitle.innerText = e.target.innerText
+    div.style.height = 0;
+    let span1: any = document.querySelector('.span2')
+    span1.style.transform = 'translate(0%,-50%) rotate(-90deg)'
     let aa: any = ogone
     aa.push(e.target.innerText)
     setOgone(aa)
@@ -221,7 +246,6 @@ const Home: NextPage = () => {
     setOgone(aa)
   }
 
-
   const program = useContext(ContractContext);
 
   const fetchRaffles = async () => {
@@ -231,7 +255,7 @@ const Home: NextPage = () => {
     await new Promise((r) => setTimeout(r, 2000));
     console.log("Accounts: ", data);
     setRaffles(
-      data.map((account) => (
+      data && data.map((account) => (
         <Raffle
           key={account.publicKey.toString()}
           account={{
@@ -251,7 +275,7 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    fetchRaffles();
+    // fetchRaffles();
   }, [program]);
 
   return (
@@ -269,11 +293,7 @@ const Home: NextPage = () => {
         <title>Reactiv3 Nft Raffle</title>
       </Head>
       <div className={styles.home_img}>
-        <img src="/home-logo.png"
-          // height='100%'
-          // width='100%'
-          // layout="fill"
-        ></img>
+        <img src="/home-logo.png"></img>
         <div className={styles.home_page}>Your NFT collection short description in about ten-eleven words.</div>
         <div className={styles.home_show}>
           <div>
@@ -281,11 +301,7 @@ const Home: NextPage = () => {
               show && show.map((item: any, index) => {
                 return (
                   <div key={index}>
-                    <img src={item.img} 
-                      // height='100%'
-                      // width='100%'
-                      // layout="fill"
-                      ></img>
+                    <img src={item.img}></img>
                     <div className={styles.price}>${item.price}</div>
                     <div className={styles.bottom}>
                       <div>
@@ -317,12 +333,24 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div className={styles.home_rf}>
+
         <div className={styles.home_rf_left}>
-          {loading ? (<Loading loading={loading} />) : (raffles && raffles)}
+          <div className={styles.home_rf_left_title}>
+            <div><span>hot</span><span>newest</span></div>
+            <div>
+              <div>
+                <div>sort</div>
+                <div><span>Recently Added</span><span>Recently Added</span><span>Recently Added</span><span>Recently Added</span></div>
+              </div>
+              <div>56</div>
+            </div>
+          </div>
+          {/* {loading ? (<Loading loading={loading} />) : (raffles && raffles)} */}
         </div>
+
         <div className={styles.home_rf_right}>
-          <h1>token</h1>
           <div className={styles.mint}>
+            <div> show:</div>
             {
               ogone && ogone.map((item, index) => {
                 return (
@@ -331,17 +359,41 @@ const Home: NextPage = () => {
               })
             }
           </div>
-          <div className={styles.maxt} onClick={() => opentitle()}><div className="istitle"></div><span className='span1'></span></div>
-          <ul className={styles.ul} id='ul'>
-            {
-              pages && pages.map((item, index) => {
-                return (
-                  <li key={index} onClick={(e) => closeAndChange(e)}>{item}</li>
-                )
-              })
-            }
-          </ul>
+          <div className={styles.bom}>
+            <div>Filter</div>
+            <div className={styles.flitone}>
+              <div>Token</div>
+              <div className={styles.maxt} onClick={() => opentitle()}><div className="istitle"></div><span className='span1'></span></div>
+              <ul className={styles.ul} id='ul'>
+                {
+                  pages && pages.map((item, index) => {
+                    return (
+                      <li key={index} onClick={(e) => closeAndChange(e)}>{item}</li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
+            <div className={styles.flittwo}>
+              <div>Collection</div>
+              <div className={styles.maxt} onClick={() => opentitlee()}><div className="istitlee"></div><span className='span2'></span></div>
+              <ul className={styles.ul} id='ull'>
+                {
+                  pages && pages.map((item, index) => {
+                    return (
+                      <li key={index} onClick={(e) => closeAndChangee(e)}>{item}</li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
+            <img src="./home/lan.png"></img>
+          </div>
         </div>
+      </div>
+      <div className={styles.home_logo}>
+        <div><img src="./home/r3.svg"></img></div>
+        <div>reactiv3, the #1 Solana NFT Marketplace.</div>
       </div>
     </div>
   );

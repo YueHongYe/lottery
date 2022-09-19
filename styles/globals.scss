@@ -9,6 +9,8 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 1000px;
+  overflow-x: auto;
 }
 
 body {
@@ -19,9 +21,7 @@ body {
   color: $cream;
   width:100%;
   max-width: 2000px;
-  overflow-y:scroll;
   font-family:'bbb';
-  overflow-x: hidden;
 }
 @font-face {
   font-family: aaa;

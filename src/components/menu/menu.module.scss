@@ -136,28 +136,3 @@
 
   }
 }
-
-@media screen and (max-width:1000px) {
-  .container {
-    .link2 {
-      .links{
-        >div{
-          >span{
-            height: 30px;
-            line-height: 10px;
-          }
-        }
-        >div:nth-child(3){
-          height: 30px;
-          >button{
-            height: 30px;
-            line-height: 15px;
-          }
-        }
-      }
-      >button {
-        margin-left: 0%;
-      }
-    }
-  }
-}

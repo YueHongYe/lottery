@@ -26,17 +26,7 @@ export type SolanaRaffles = {
           "isSigner": false
         },
         {
-          "name": "associatedTokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "accept",
           "isMut": false,
           "isSigner": false
         },
@@ -46,13 +36,18 @@ export type SolanaRaffles = {
           "isSigner": false
         },
         {
-          "name": "acceptAta",
+          "name": "nftMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenEscrowed",
           "isMut": true,
           "isSigner": false
         },
         {
-          "name": "nftMint",
-          "isMut": false,
+          "name": "nftEscrowed",
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -62,14 +57,6 @@ export type SolanaRaffles = {
         }
       ],
       "args": [
-        {
-          "name": "price",
-          "type": "u64"
-        },
-        {
-          "name": "ends",
-          "type": "i64"
-        },
         {
           "name": "title",
           "type": "string"
@@ -83,32 +70,42 @@ export type SolanaRaffles = {
           "type": "string"
         },
         {
-          "name": "winNftPubkey",
-          "type": "publicKey"
-        },
-        {
           "name": "winners",
           "type": "u8"
         },
         {
-          "name": "requiresAuthor",
+          "name": "nftEscrowedBump",
           "type": "u8"
+        },
+        {
+          "name": "tokenEscrowedBump",
+          "type": "u8"
+        },
+        {
+          "name": "endDate",
+          "type": "i64"
+        },
+        {
+          "name": "createdDate",
+          "type": "i64"
+        },
+        {
+          "name": "price",
+          "type": "u8"
+        },
+        {
+          "name": "ifRentNft",
+          "type": "u8"
+        },
+        {
+          "name": "rentNft",
+          "type": "publicKey"
         }
       ]
     },
     {
       "name": "purchaseTicket",
       "accounts": [
-        {
-          "name": "authority",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "needSigner",
-          "isMut": false,
-          "isSigner": true
-        },
         {
           "name": "participant",
           "isMut": true,
@@ -130,7 +127,7 @@ export type SolanaRaffles = {
           "isSigner": false
         },
         {
-          "name": "authorityAta",
+          "name": "tokenEscrowed",
           "isMut": true,
           "isSigner": false
         },
@@ -174,6 +171,21 @@ export type SolanaRaffles = {
           "name": "raffle",
           "isMut": true,
           "isSigner": false
+        },
+        {
+          "name": "nftEscrowed",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authorityAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
         }
       ],
       "args": []
@@ -208,23 +220,13 @@ export type SolanaRaffles = {
           "isSigner": false
         },
         {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "associatedTokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "winWallet",
           "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "raffleAuthority",
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -233,7 +235,7 @@ export type SolanaRaffles = {
           "isSigner": true
         },
         {
-          "name": "authorityAta",
+          "name": "nftEscrowed",
           "isMut": true,
           "isSigner": false
         },
@@ -248,7 +250,275 @@ export type SolanaRaffles = {
           "isSigner": false
         },
         {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
           "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "createRentNft",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rentNft",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rentNftEscrowed",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authorityAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nftMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "nftName",
+          "type": "string"
+        },
+        {
+          "name": "nftImage",
+          "type": "string"
+        },
+        {
+          "name": "rentNftEscrowedAtaBump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "closeRentNft",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rentNft",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authorityAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rentNftEscrowed",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "sendRaffleToken",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "raffle",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "raffleAuthority",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "platform",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenEscrowed",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "raffleAuthorityAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "platformAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "sendRaffleRentNftToken",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "raffle",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "raffleAuthority",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rentNftAuthority",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenEscrowed",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rentNftAuthorityAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "createRentNftCount",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rentNftCount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "createdDate",
+          "type": "i64"
+        },
+        {
+          "name": "rentNft",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "updateRentNftCount",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rentNftCount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
           "isMut": false,
           "isSigner": false
         }
@@ -265,10 +535,6 @@ export type SolanaRaffles = {
           {
             "name": "authority",
             "type": "publicKey"
-          },
-          {
-            "name": "ends",
-            "type": "i64"
           },
           {
             "name": "title",
@@ -291,15 +557,47 @@ export type SolanaRaffles = {
             "type": "u8"
           },
           {
-            "name": "requiresAuthor",
+            "name": "token",
+            "type": "publicKey"
+          },
+          {
+            "name": "nftEscrowedBump",
             "type": "u8"
           },
           {
-            "name": "price",
-            "type": "u64"
+            "name": "nftEscrowed",
+            "type": "publicKey"
           },
           {
-            "name": "token",
+            "name": "tokenEscrowed",
+            "type": "publicKey"
+          },
+          {
+            "name": "authorityAta",
+            "type": "publicKey"
+          },
+          {
+            "name": "endDate",
+            "type": "i64"
+          },
+          {
+            "name": "createdDate",
+            "type": "i64"
+          },
+          {
+            "name": "price",
+            "type": "u8"
+          },
+          {
+            "name": "tokenEscrowedBump",
+            "type": "u8"
+          },
+          {
+            "name": "ifRentNft",
+            "type": "u8"
+          },
+          {
+            "name": "rentNft",
             "type": "publicKey"
           }
         ]
@@ -317,6 +615,62 @@ export type SolanaRaffles = {
           {
             "name": "participant",
             "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "rentNft",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nftName",
+            "type": "string"
+          },
+          {
+            "name": "nftImage",
+            "type": "string"
+          },
+          {
+            "name": "nftMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "authority",
+            "type": "publicKey"
+          },
+          {
+            "name": "authorityAta",
+            "type": "publicKey"
+          },
+          {
+            "name": "rentNftEscrowedAta",
+            "type": "publicKey"
+          },
+          {
+            "name": "rentNftEscrowedAtaBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "rentNftCount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "rentNft",
+            "type": "publicKey"
+          },
+          {
+            "name": "createdDate",
+            "type": "i64"
+          },
+          {
+            "name": "count",
+            "type": "u8"
           }
         ]
       }
@@ -342,7 +696,7 @@ export type SolanaRaffles = {
     {
       "code": 6000,
       "name": "RaffleEnded",
-      "msg": "Raffle Has Ended"
+      "msg": "Rent Has Ended"
     },
     {
       "code": 6001,
@@ -385,17 +739,7 @@ export const IDL: SolanaRaffles = {
           "isSigner": false
         },
         {
-          "name": "associatedTokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "accept",
           "isMut": false,
           "isSigner": false
         },
@@ -405,13 +749,18 @@ export const IDL: SolanaRaffles = {
           "isSigner": false
         },
         {
-          "name": "acceptAta",
+          "name": "nftMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenEscrowed",
           "isMut": true,
           "isSigner": false
         },
         {
-          "name": "nftMint",
-          "isMut": false,
+          "name": "nftEscrowed",
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -421,14 +770,6 @@ export const IDL: SolanaRaffles = {
         }
       ],
       "args": [
-        {
-          "name": "price",
-          "type": "u64"
-        },
-        {
-          "name": "ends",
-          "type": "i64"
-        },
         {
           "name": "title",
           "type": "string"
@@ -442,32 +783,42 @@ export const IDL: SolanaRaffles = {
           "type": "string"
         },
         {
-          "name": "winNftPubkey",
-          "type": "publicKey"
-        },
-        {
           "name": "winners",
           "type": "u8"
         },
         {
-          "name": "requiresAuthor",
+          "name": "nftEscrowedBump",
           "type": "u8"
+        },
+        {
+          "name": "tokenEscrowedBump",
+          "type": "u8"
+        },
+        {
+          "name": "endDate",
+          "type": "i64"
+        },
+        {
+          "name": "createdDate",
+          "type": "i64"
+        },
+        {
+          "name": "price",
+          "type": "u8"
+        },
+        {
+          "name": "ifRentNft",
+          "type": "u8"
+        },
+        {
+          "name": "rentNft",
+          "type": "publicKey"
         }
       ]
     },
     {
       "name": "purchaseTicket",
       "accounts": [
-        {
-          "name": "authority",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "needSigner",
-          "isMut": false,
-          "isSigner": true
-        },
         {
           "name": "participant",
           "isMut": true,
@@ -489,7 +840,7 @@ export const IDL: SolanaRaffles = {
           "isSigner": false
         },
         {
-          "name": "authorityAta",
+          "name": "tokenEscrowed",
           "isMut": true,
           "isSigner": false
         },
@@ -533,6 +884,21 @@ export const IDL: SolanaRaffles = {
           "name": "raffle",
           "isMut": true,
           "isSigner": false
+        },
+        {
+          "name": "nftEscrowed",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authorityAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
         }
       ],
       "args": []
@@ -567,23 +933,13 @@ export const IDL: SolanaRaffles = {
           "isSigner": false
         },
         {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "associatedTokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "winWallet",
           "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "raffleAuthority",
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -592,7 +948,7 @@ export const IDL: SolanaRaffles = {
           "isSigner": true
         },
         {
-          "name": "authorityAta",
+          "name": "nftEscrowed",
           "isMut": true,
           "isSigner": false
         },
@@ -607,7 +963,275 @@ export const IDL: SolanaRaffles = {
           "isSigner": false
         },
         {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
           "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "createRentNft",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rentNft",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rentNftEscrowed",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authorityAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nftMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "nftName",
+          "type": "string"
+        },
+        {
+          "name": "nftImage",
+          "type": "string"
+        },
+        {
+          "name": "rentNftEscrowedAtaBump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "closeRentNft",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rentNft",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authorityAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rentNftEscrowed",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "sendRaffleToken",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "raffle",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "raffleAuthority",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "platform",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenEscrowed",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "raffleAuthorityAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "platformAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "sendRaffleRentNftToken",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "raffle",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "raffleAuthority",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rentNftAuthority",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenEscrowed",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rentNftAuthorityAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "createRentNftCount",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rentNftCount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "createdDate",
+          "type": "i64"
+        },
+        {
+          "name": "rentNft",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "updateRentNftCount",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rentNftCount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
           "isMut": false,
           "isSigner": false
         }
@@ -624,10 +1248,6 @@ export const IDL: SolanaRaffles = {
           {
             "name": "authority",
             "type": "publicKey"
-          },
-          {
-            "name": "ends",
-            "type": "i64"
           },
           {
             "name": "title",
@@ -650,15 +1270,47 @@ export const IDL: SolanaRaffles = {
             "type": "u8"
           },
           {
-            "name": "requiresAuthor",
+            "name": "token",
+            "type": "publicKey"
+          },
+          {
+            "name": "nftEscrowedBump",
             "type": "u8"
           },
           {
-            "name": "price",
-            "type": "u64"
+            "name": "nftEscrowed",
+            "type": "publicKey"
           },
           {
-            "name": "token",
+            "name": "tokenEscrowed",
+            "type": "publicKey"
+          },
+          {
+            "name": "authorityAta",
+            "type": "publicKey"
+          },
+          {
+            "name": "endDate",
+            "type": "i64"
+          },
+          {
+            "name": "createdDate",
+            "type": "i64"
+          },
+          {
+            "name": "price",
+            "type": "u8"
+          },
+          {
+            "name": "tokenEscrowedBump",
+            "type": "u8"
+          },
+          {
+            "name": "ifRentNft",
+            "type": "u8"
+          },
+          {
+            "name": "rentNft",
             "type": "publicKey"
           }
         ]
@@ -676,6 +1328,62 @@ export const IDL: SolanaRaffles = {
           {
             "name": "participant",
             "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "rentNft",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nftName",
+            "type": "string"
+          },
+          {
+            "name": "nftImage",
+            "type": "string"
+          },
+          {
+            "name": "nftMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "authority",
+            "type": "publicKey"
+          },
+          {
+            "name": "authorityAta",
+            "type": "publicKey"
+          },
+          {
+            "name": "rentNftEscrowedAta",
+            "type": "publicKey"
+          },
+          {
+            "name": "rentNftEscrowedAtaBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "rentNftCount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "rentNft",
+            "type": "publicKey"
+          },
+          {
+            "name": "createdDate",
+            "type": "i64"
+          },
+          {
+            "name": "count",
+            "type": "u8"
           }
         ]
       }
@@ -701,7 +1409,7 @@ export const IDL: SolanaRaffles = {
     {
       "code": 6000,
       "name": "RaffleEnded",
-      "msg": "Raffle Has Ended"
+      "msg": "Rent Has Ended"
     },
     {
       "code": 6001,

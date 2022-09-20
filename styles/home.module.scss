@@ -197,6 +197,9 @@
                                 font-size: 0.14rem;
                                 cursor: pointer;
                                 user-select: none;
+                                &:hover{
+                                    color: #FFFFFF;
+                                }
                             }
                         }
                     }
@@ -217,6 +220,38 @@
                         transform: translateY(-50%);
                     }
                 }
+            }
+
+            .raffles::-webkit-scrollbar {
+                width: 5px;
+                height: 10px;
+            }
+            .raffles::-webkit-scrollbar-track {
+                background: #2A3261;
+                border-radius: 10px;
+            }
+            .raffles::-webkit-scrollbar-thumb {
+                background: #FFFFFF;
+                border-radius: 10px;
+            }
+            .raffles{
+                background-color: #000000;
+                margin-top: 0.2rem;
+                padding-top: 0.2rem;
+                overflow: auto;
+                height: calc(100% - 1.2rem);
+                width: 100%;
+                display: grid;
+                justify-content: center;
+                align-items: center;
+                grid-gap: 10px;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                // >div:nth-child(even){//一上一下的效果在这
+                //     transform: translateY(10%);
+                // }
+                // >div:nth-child(odd){
+                //     transform: translateY(0%);
+                // }
             }
         }
 
@@ -479,6 +514,17 @@
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width:1500px) {
+    .container{
+        .home_rf{
+            .home_rf_left{
+                .raffles{
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
                 }
             }
         }

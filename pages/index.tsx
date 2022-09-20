@@ -173,6 +173,7 @@ const Home: NextPage = () => {
   const [showIndex, setShowIndex] = useState(0)
   const [dates, setDates] = useState(new Date())
   const [pages, setPages] = useState(['Recently Added', 'Expiring Soon', 'Selling out soon', 'Expiring Soon'])
+  const [sor, setSor] = useState(['recentlyAdded', 'priceLowHigh', 'priceHighLow', 'expiringSoon'])
   const [ogone, setOgone] = useState([])
 
   useEffect(() => {
@@ -263,7 +264,7 @@ const Home: NextPage = () => {
             title: account.account.title,
             description: account.account.description,
             fee: 0,
-            ends: account.account.ends.toNumber(),
+            ends: account.account.endDate.toNumber(),
             winNftUrl: account.account.winNftUrl,
             winNftPubkey: account.account.winNftUrl,
           }}
@@ -275,8 +276,46 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    // fetchRaffles();
+    fetchRaffles();
   }, [program]);
+
+  const handleClickSelect = async (val: any) => {
+    const selectedFilter = val;
+    const sortData: any = await sortRaffles(selectedFilter);
+    console.log("sortData: ", sortData)
+    setRaffles(
+      sortData.map((account: any) => (
+        <Raffle
+          key={account.publicKey.toString()}
+          account={{
+            author: account.account.authority,
+            title: account.account.title,
+            description: account.account.description,
+            fee: 0,
+            ends: account.account.endDate.toNumber(),
+            winNftUrl: account.account.winNftUrl,
+            winNftPubkey: account.account.winNftUrl,
+          }}
+          publicKey={account.publicKey}
+        />
+      ))
+    );
+    setLoading(false);
+  }
+
+  const sortRaffles = async (selectedFilterName: string) => {
+    if (!program) return;
+    const data = await program.program.account.raffle.all();
+    if (selectedFilterName === 'recentlyAdded') {
+      return data.sort((itemA, itemB) => itemB.account.createdDate.toNumber() - itemA.account.createdDate.toNumber());
+    } else if (selectedFilterName === 'priceLowHigh') {
+      return data.sort((itemA, itemB) => itemA.account.price - itemB.account.price);
+    } else if (selectedFilterName === 'priceHighLow') {
+      return data.sort((itemA, itemB) => itemB.account.price - itemA.account.price);
+    } else if (selectedFilterName === 'expiringSoon') {
+      return data.sort((itemA, itemB) => itemB.account.endDate.toNumber() - itemA.account.endDate.toNumber());
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -340,17 +379,27 @@ const Home: NextPage = () => {
             <div>
               <div>
                 <div>sort</div>
-                <div><span>Recently Added</span><span>Recently Added</span><span>Recently Added</span><span>Recently Added</span></div>
+                <div>
+                  {
+                    sor.map((item, index) => {
+                      return (
+                        <span onClick={() => handleClickSelect(item)} key={index}>{item}</span>
+                      )
+                    })
+                  }
+                </div>
               </div>
-              <div>56</div>
+              <div>{raffles.length}</div>
             </div>
           </div>
-          {/* {loading ? (<Loading loading={loading} />) : (raffles && raffles)} */}
+          <div className={styles.raffles}>
+            {loading ? (<Loading loading={loading} />) : (raffles && raffles)}
+          </div>
         </div>
 
         <div className={styles.home_rf_right}>
           <div className={styles.mint}>
-            <div> show:</div>
+            <div> show :</div>
             {
               ogone && ogone.map((item, index) => {
                 return (
